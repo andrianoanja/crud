@@ -1,2 +1,4 @@
-
-crud/__init__.py
+*.py
+*.html
+*.css
+*.sqlite3
