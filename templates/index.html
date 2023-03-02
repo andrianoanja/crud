@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% include 'message.html' %}
+<hr>
+{% if request.user.is_authenticated %}
+<div class="row">
+    <div class="col-md-9">
+    <a href="{% url 'deconnexion' %}" class="save btn btn-danger">Deconnecter</a>
+</div>
+    <div class="col-md-3">
+        <div class="text-primary">
+           <i class="fa fa-user-circle"></i> Bienvenue {{user.username}} !
+        </div>
+</div>
+</div>
+{% else %}
+    <a href="{% url 'inscrire' %}" class="save btn btn-primary"> S'inscrire</a>
+    <a href="{% url 'login' %}" class="save btn btn-primary">Se connecter</a>
+{% endif %}
+<hr>
+<div class="text-center">
+<h1 class="text-success"></h1>
+</div>
+<hr>
+<div class="row">
+    <div class="col-md-4">
+        <div class="card-body">
+<a href="{% url 'admin:index' %}" class="save btn btn-primary">Admin</a>
+{% if request.user.is_authenticated %}
+<a href="{% url 'ajouter' %}" class="save btn btn-primary">Ajouter</a>
+{% endif %}
+</div>
+</div>
+<form action="" class="col-md-8">
+    <div class="card-body row  ">
+        <div class="col">
+           <input type="serch" class="form-control form-control-borderless" name="serch" >
+    </div>
+    <div class="col-auto">
+        <button type="submit" class="btn btn-primary">Rechercher <i class="fa fa-search"></i></button>
+    </div>
+    </div>
+</form>
+</div>
+<hr>
+<table class="table table-bordered">
+    <tr id="tete">
+        <th>Designation</th>
+        <th>Quantité</th>
+        <th>Prix</th>
+        {% if request.user.is_authenticated %}
+        <th>Actions</th>
+        {% endif %}
+    </tr> 
+    <tr>
+        {% for produit in produits %}
+        <td>{{produit.designation}}</td> 
+        <td>{{produit.quantite}}</td>
+        <td>{{produit.prix}} Ar</td>
+        {% if request.user.is_authenticated %}
+        <td><a href="{% url 'update' produit.id %}"><button class="save btn btn-info"> <i class="fa fa-edit"></i> Modifier</button></a> <a href="{% url 'delete' produit.id %}"><button class="save btn btn-danger"> <i class="fa fa-trash-o"></i> Suprimer</button></a></td>
+        {% endif %}
+    </tr>
+    {% endfor %}
+</table>
+
+<div class="row mt-3">
+    <div class="col-md-3 offset-md-4">
+        <ul class="pagination">
+             {% if produits.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ produits.previous_page_number }}">Precedent</a>
+                </li>
+             {% endif %}
+                  <li class="page-item active">
+                      <a class="page-link" href="?page={{ produits.number }}">{{ produits.number }}</a>
+                  </li>
+
+             {% if produits.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ produits.next_page_number }}">Suivant</a>
+                </li>
+             {% endif %}
+        </ul>
+    </div>
+
+   </div>
+{% endblock %}

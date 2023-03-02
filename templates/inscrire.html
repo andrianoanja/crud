@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<hr>
+<div class="col-md-8 offset-2">
+<div class="text-center">
+    <h1 class="text-danger">S'inscrire</h1>
+</div>
+<hr>
+{% include 'message.html' %}
+<hr>
+<form method="POST" class="post-form">
+    {% csrf_token %}
+    
+        <label for="">utilisateur</label>
+        {{signup.username}}
+        <label for="">nom</label>
+        {{signup.last_name}}
+        <label for="">prenom</label>
+        {{signup.first_name}}
+        <label for="">mail</label>
+        {{signup.email}}
+        <label for="">mot de passe</label>
+        {{signup.password1}}
+        <label for="">confirmation</label>
+        {{signup.password2}}
+        {{signup.is_active.False}}
+    
+    <hr>
+    <div class="text-center">
+         <button type="submit" class="save btn btn-primary">Enregistrer</button>
+    </div>
+</form>
+</div>
+{% endblock %}

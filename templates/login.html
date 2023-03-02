@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="col-md-8 offset-2">
+    <div class="text-center">
+        <h1 class="text-danger">Se connecter</h1>
+    </div>
+<form method="POST" class="post-form">
+    {% csrf_token %}
+     {% for b in form %}
+       {{ b.label_tag }}
+       {{b}}
+     {% endfor %}
+    <hr>
+    <div class="text-center">
+         <button type="submit" class="save btn btn-primary">Connexion</button>
+    </div>
+</form>
+</div>
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+  .text-warning::after{
+      content: "AJOUTER";
+      animation: textanim  5s infinite;
+  }
+  @keyframes textanim{
+      100%{
+          content: "MODIFIER"; 
+      }
+  }
+</style>
+<div class="col-md-8 offset-2">
+<div class="text-center">
+<h2 class="text-warning"></h2>
+</div>
+<hr>
+<a href="{% url 'index' %}"><button class="save btn btn-danger">Retour</button></a>
+<hr>
+<form  method="POST" class="post-form">
+    {% csrf_token %}
+    {{ produit.as_p}}
+    <div class="text-center">
+  <button class="save btn  btn-success">Modeifier</button>
+</div>
+</form>
+</div>
+{% endblock %}
